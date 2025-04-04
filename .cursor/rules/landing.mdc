@@ -1,0 +1,192 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## РАЗРАБОТКА СОВРЕМЕННЫХ ВЕБ-ПРИЛОЖЕНИЙ (JAVASCRIPT/TYPESCRIPT)
+
+### КЛЮЧЕВЫЕ ПРИНЦИПЫ:
+
+1. **АРХИТЕКТУРНЫЙ АНАЛИЗ ДИЗАЙНА**
+   - Идентифицируй компоненты UI (формы, списки, карточки)
+   - Определи маршрутизацию и структуру страниц
+   - Спроектируй модель данных для компонентов
+   - Создай схему взаимодействия компонентов
+
+2. **ВЫБОР ФРЕЙМВОРКА**
+   - **React**: для SPA с высокой интерактивностью, мобильных приложений
+   - **Next.js**: для SEO-оптимизированных проектов, SSR/SSG, корпоративных сайтов
+   - **Vue.js**: для быстрого старта и проектов средней сложности
+   - **Angular**: для масштабных корпоративных приложений
+
+3. **ОРГАНИЗАЦИЯ КОДА**
+   - **Компонентная структура**:
+     - Атомарный дизайн (atoms → molecules → organisms → templates → pages)
+     - Функциональные компоненты с хуками (React/Vue 3)
+     - Строгая типизация через TypeScript
+   - **Стейт-менеджмент**:
+     - React: Redux Toolkit, Zustand или Context API
+     - Vue: Pinia или Vuex
+     - Angular: NgRx
+
+4. **КЛИЕНТ-СЕРВЕРНОЕ ВЗАИМОДЕЙСТВИЕ**
+   - **REST API**:
+     - Axios с перехватчиками для обработки ошибок
+     - Централизованная обработка запросов через сервисы
+   - **GraphQL**:
+     - Apollo Client или urql для сложных моделей данных
+   - **Сокеты**:
+     - Socket.io для реального времени
+
+5. **ФУНКЦИОНАЛЬНОСТЬ И ПРОИЗВОДИТЕЛЬНОСТЬ**
+   - **Оптимизация рендеринга**:
+     - React: useMemo, useCallback, React.memo
+     - Vue: computed, watch, v-once
+     - Ленивая загрузка (React.lazy, Vue/Angular dynamic imports)
+   - **Работа с формами**:
+     - React Hook Form или Formik для React
+     - VeeValidate для Vue
+     - Angular Reactive Forms
+   - **Анимации и переходы**:
+     - Framer Motion (React)
+     - Vue Transition
+     - Angular Animations
+
+6. **ТЕСТИРОВАНИЕ И КАЧЕСТВО**
+   - **Компонентное тестирование**:
+     - Jest + React Testing Library
+     - Vue Test Utils
+     - Angular Testing Utilities
+   - **E2E тестирование**:
+     - Cypress или Playwright
+
+7. **РАЗВЕРТЫВАНИЕ**
+   - **Сборка**:
+     - Vite для быстрой разработки
+     - Webpack для продакшена
+   - **CI/CD**:
+     - GitHub Actions или GitLab CI
+     - Vercel/Netlify для фронтенд-приложений
+
+### ПРИМЕРЫ ИСПОЛЬЗОВАНИЯ ФРЕЙМВОРКОВ:
+
+**React/Next.js:**
+```jsx
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function ProductList() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    axios.get('/api/products')
+      .then(response => {
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch(error => console.error(error));
+  }, []);
+  
+  if (loading) return <div>Загрузка...</div>;
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {products.map(product => (
+        <div key={product.id} className="border p-4 rounded shadow">
+          <h2 className="text-xl font-bold">{product.name}</h2>
+          <p>{product.description}</p>
+          <p className="text-lg font-semibold">{product.price} ₽</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+**Vue.js:**
+```vue
+<template>
+  <div>
+    <div v-if="loading">Загрузка...</div>
+    <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div v-for="product in products" :key="product.id" class="border p-4 rounded shadow">
+        <h2 class="text-xl font-bold">{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <p class="text-lg font-semibold">{{ product.price }} ₽</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const products = ref([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('/api/products');
+    products.value = response.data;
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading.value = false;
+  }
+});
+</script>
+```
+
+### ИНТЕГРАЦИЯ С БЭКЕНДОМ:
+
+1. **API СЕРВИСЫ**:
+   - Создавай отдельные сервисные модули для API
+   - Используй интерцепторы для обработки токенов и ошибок
+   - Применяй кэширование для оптимизации
+
+2. **АУТЕНТИФИКАЦИЯ**:
+   - JWT + localStorage/sessionStorage/HttpOnly cookie
+   - OAuth 2.0 для внешних сервисов
+   - Refresh token для бесшовной авторизации
+
+3. **ЗАЩИТА И БЕЗОПАСНОСТЬ**:
+   - Валидация форм на клиенте и сервере
+   - Защита от XSS через экранирование данных
+   - CSP для предотвращения инъекций скриптов
+
+### ТРЕБОВАНИЯ К КОДУ:
+
+1. **ЧИСТОТА И ПОДДЕРЖИВАЕМОСТЬ**:
+   - Единый стиль форматирования (ESLint, Prettier)
+   - Систематические наименования компонентов и переменных
+   - Документирование сложных участков кода
+
+2. **ПРОИЗВОДИТЕЛЬНОСТЬ**:
+   - Минимизация повторных рендеров
+   - Оптимизация импортов и бандлов
+   - Кэширование данных и результатов вычислений
+
+3. **UX И ДОСТУПНОСТЬ**:
+   - ARIA атрибуты для элементов управления
+   - Клавиатурная навигация
+   - Поддержка темной/светлой темы
+
+### ПРОВЕРОЧНЫЙ СПИСОК:
+
+- [ ] Компоненты соответствуют дизайн-макетам
+- [ ] Имеется адаптивная верстка для всех устройств
+- [ ] Добавлена обработка ошибок API и состояний загрузки
+- [ ] Реализована оптимизация производительности
+- [ ] Код соответствует стилю TypeScript/ESLint
+- [ ] Настроены системы сборки и деплоя
+
+#### ДОПОЛНИТЕЛЬНО:
+
+При работе с дизайнерами (Figma → код):
+- Используй компоненты как прямое отражение дизайн-систем
+- Создавай переиспользуемую библиотеку UI компонентов
+- Автоматизируй извлечение стилей и ресурсов из Figma
+
+Все решения должны быть модульными и легко модифицируемыми при обновлениях дизайна.

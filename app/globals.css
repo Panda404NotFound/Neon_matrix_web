@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --foreground-rgb: 249, 249, 249;
+    --background-rgb: 15, 15, 15;
+  }
+
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('/fonts/SpaceMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('/fonts/SpaceMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    height: 100%;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Mono', monospace;
+    letter-spacing: -0.02em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-synth-green hover:bg-synth-green-dark text-synth-black font-medium py-2 px-6 rounded-sm transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 bg-transparent hover:bg-synth-green/20 border border-synth-green text-synth-green font-medium py-2 px-6 rounded-sm transition-all duration-300;
+  }
+
+  .synth-card {
+    @apply bg-synth-gray-dark/70 backdrop-blur-md border border-synth-gray/30 p-6 rounded-sm transition-all duration-300 hover:border-synth-green/50;
+  }
+
+  .synth-panel {
+    @apply bg-synth-gray-dark/70 backdrop-blur-md rounded-sm border border-synth-gray/30 relative;
+  }
+
+  .synth-input {
+    @apply bg-synth-black/50 border border-synth-gray/30 text-synth-white px-4 py-3 rounded-sm focus:outline-none focus:border-synth-green transition-all duration-300;
+  }
+
+  .synth-gradient-text {
+    @apply bg-gradient-to-r from-synth-green to-synth-white bg-clip-text text-transparent;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-mono font-bold mb-8 text-synth-white;
+  }
+
+  .section-subtitle {
+    @apply text-xl font-mono font-bold text-synth-green;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+}
+
+/* Синтетические структуры - декоративные элементы с CSS */
+.synth-decor-line {
+  position: relative;
+}
+
+.synth-decor-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, #00FF85, transparent);
+}
+
+.synth-dot-pattern {
+  background-image: radial-gradient(#00FF85 1px, transparent 1px);
+  background-size: 16px 16px;
+  opacity: 0.15;
+}
+
+/* Сетка фона */
+.grid-background {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+  background-image: url('/images/grid.svg');
+  background-size: 100px 100px;
+}
+
+/* Стилизованные скроллбары */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 15, 15, 0.9);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 133, 0.2);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 133, 0.3);
+} 
